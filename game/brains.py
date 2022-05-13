@@ -15,7 +15,6 @@ class Brains(pygame.sprite.Sprite):
         self.vel_x = 0
         self.points = 1
 
-
     def update(self):
         self.rect.left -= self.vel_x 
 

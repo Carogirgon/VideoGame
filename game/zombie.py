@@ -31,8 +31,8 @@ class Zombie(pygame.sprite.Sprite):
         self.lives -= 1
         self.pos_y = cactus.rect.top
         self.vel_y = 0
-        self.can_jump = True
-    
+        self.can_jump = False
+
     def jump(self):
         if self.can_jump:
             self.vel_y = -23

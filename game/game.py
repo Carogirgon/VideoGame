@@ -15,7 +15,7 @@ class Cowboy_zombie:
         self.title = pygame.display.set_caption(TITLE)
         self.background = pygame.transform.scale(pygame.image.load(os.path.join('game/image/desert.png')),(WIDHT, HEIGHT))
         self.music = pygame.mixer.music.load('game/sounds/intro.wav')
-        self.music = pygame.mixer.music.set_volume(0.2)
+        self.music = pygame.mixer.music.set_volume(0.1)
         self.music = pygame.mixer.music.play(-1)
         self.running = True
         self.clock = pygame.time.Clock()
@@ -105,7 +105,7 @@ class Cowboy_zombie:
 
     def update(self):
 
-        if self.zombie.lives > 0:
+        if self.zombie.lives > 0 :
             if not self.zombie.lives:
                 return
 
@@ -120,7 +120,7 @@ class Cowboy_zombie:
             if brain:
                 self.increment_score(brain.points)
                 brain.kill()
-                pygame.mixer.Sound(os.path.join(self.dir_sounds,'coin.wav')).play() 
+                pygame.mixer.Sound(os.path.join(self.dir_sounds,'bite.wav')).play() 
 
             self.sprites.update()
             self.zombie.validate_platform(self.platform) 
@@ -142,7 +142,6 @@ class Cowboy_zombie:
         self.zombie = False
         self.zombie.stop()
         self.stop_elements(self.cactus)
-
 
     def stop_elements(self, elements):
 
