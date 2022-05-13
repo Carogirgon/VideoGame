@@ -15,12 +15,13 @@ class Cactus(pygame.sprite.Sprite):
         self.vel_x = SPEED
         self.rect_top = pygame.Rect(self.rect.x, self.rect.y, self.rect.width, 1) 
 
-    def update(self): #Animacion para que el obstculo de mueva
+    def update(self): 
         self.rect.left -= self.vel_x
+        self.rect_top.x = self.rect.x
 
-        self.rect_top.x = self.rect.x #para que rect se mantenga en la parte superior
+    def set_vel_x(self, vel_x):
+        self.vel_x = vel_x
 
-    def stop(self): #detener el movimiento del obstaculo
+    def stop(self): 
         self.vel_x = 0 
-
 

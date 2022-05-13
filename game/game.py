@@ -15,11 +15,9 @@ class Cowboy_zombie:
         self.title = pygame.display.set_caption(TITLE)
         self.background = pygame.transform.scale(pygame.image.load(os.path.join('game/image/desert.png')),(WIDHT, HEIGHT))
         self.music = pygame.mixer.music.load('game/sounds/intro.wav')
-        self.music = pygame.mixer.music.set_volume(0.3)
+        self.music = pygame.mixer.music.set_volume(0.2)
         self.music = pygame.mixer.music.play(-1)
         self.running = True
-        self.zombie = True
-        self.vel_y = 0
         self.clock = pygame.time.Clock()
         self.font = pygame.font.match_font(FONT)
         self.dir = os.path.dirname(__file__)
@@ -33,6 +31,7 @@ class Cowboy_zombie:
     def new_game(self):
         self.score = 0
         self.level = 0
+        self.vel_x = SPEED
         self.zombie = True
         self.generate_elements()
         self.run_game()
@@ -65,7 +64,8 @@ class Cowboy_zombie:
                 self.sprites.add(cactus)
                 self.cactus.add(cactus)
 
-            self.level += 1         
+            self.level += 1
+            self.vel_x += 1       
             self.generate_brains()
 
     def generate_brains(self):
@@ -105,52 +105,56 @@ class Cowboy_zombie:
 
     def update(self):
 
-        if self.zombie:
-            if not self.zombie:
+        if self.zombie.lives > 0:
+            if not self.zombie.lives:
                 return
 
             cactus = self.zombie.collide_with(self.cactus)
             if cactus:
                 if self.zombie.collide_bottom(cactus):
-                    self.zombie.skid(cactus)
+                    self.zombie.hit(cactus)
                 else:
                     self.stop()
 
             brain = self.zombie.collide_with(self.brains)
             if brain:
-                self.score += 1
+                self.increment_score(brain.points)
                 brain.kill()
+                pygame.mixer.Sound(os.path.join(self.dir_sounds,'coin.wav')).play() 
 
-                sound = pygame.mixer.Sound(os.path.join(self.dir_sounds,'coin.wav'))
-                sound.play() #sonido de moneda 
-
-            self.sprites.update() # todos los elementos en la lista se actualizan
-
-            self.zombie.validate_platform(self.platform) #detener la caida del personaje 
-            
+            self.sprites.update()
+            self.zombie.validate_platform(self.platform) 
             self.update_elements(self.cactus)
             self.update_elements(self.brains)
-            self.generate_cactus() # segeneran ordas de enemigos
+            self.generate_cactus()
 
     def update_elements(self, elements):
         for element in elements:
+            element.set_vel_x(self.vel_x)
+
             if not element.rect.right > 0:
                 element.kill()
 
     def stop(self):
 
-        sound = pygame.mixer.Sound(os.path.join(self.dir_sounds,'lose.wav'))
-        sound.play() #sonido de colision
-
-        self.zombie.stop() #para detener al jugador
+        pygame.mixer.Sound(os.path.join(self.dir_sounds,'lose.wav')).play()
+        self.vel_x = 0
+        self.zombie = False
+        self.zombie.stop()
         self.stop_elements(self.cactus)
 
-        self.zombie = False
 
     def stop_elements(self, elements):
 
         for element in elements:
             element.stop()
+
+    def next_level(self):
+        self.level += 0
+        self.vel_x += 1
+
+    def increment_score(self, points=1):
+        self.score += points
 
     def score_format(self):
         return 'Score : {}'.format(self.score)
@@ -199,6 +203,4 @@ class Cowboy_zombie:
 
                 if event.type == pygame.KEYUP:
                     wait = False
-
-    
 

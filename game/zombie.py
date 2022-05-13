@@ -15,43 +15,46 @@ class Zombie(pygame.sprite.Sprite):
         self.pos_y = self.rect.bottom 
         self.vel_y = 0
         self.can_jump = False 
+        self.jumpping = False
         self.zombie = True
+        self.lives = 3
 
-    def collide_with(self, sprites): #colision entre obstaculos
-        objects = pygame.sprite.spritecollide(self, sprites, False, pygame.sprite.collide_mask)
-        if objects:
-            return objects[0]
+    def collide_with(self, sprites): 
+        hits = pygame.sprite.spritecollide(self, sprites, False, pygame.sprite.collide_mask)
+        if hits:
+            return hits[0]
 
     def collide_bottom(self, cactus):
         return self.rect.colliderect(cactus.rect_top)
 
-    def skid(self, cactus):
+    def hit(self, cactus):
+        self.lives -= 1
         self.pos_y = cactus.rect.top
         self.vel_y = 0
         self.can_jump = True
     
-    def validate_platform(self, platform): #para detener la caida del personaje
+    def jump(self):
+        if self.can_jump:
+            self.vel_y = -23
+            self.jumpping = True
+            self.can_jump = False
+    
+    def validate_platform(self, platform):
         result = pygame.sprite.collide_rect(self, platform)
         if result:
             self.vel_y = 0 
             self.pos_y = platform.rect.top
             self.can_jump = True
-
-    def jump(self): #implementar salto
-        if self.can_jump:
-            self.vel_y = -23
-            self.can_jump = False 
-            self.zombie = True 
-
+            self.jumpping = False
+            
     def update_pos(self):
-        self.vel_y += ZOMBIE_GRAV # gravedad
+        self.vel_y += ZOMBIE_GRAV
         self.pos_y += self.vel_y + 0.5 * ZOMBIE_GRAV
 
     def update(self):
         if self.zombie:
             self.update_pos()
-
-            self.rect.bottom = self.pos_y #actualizacion
+            self.rect.bottom = self.pos_y
 
     def stop(self):
         self.zombie = False

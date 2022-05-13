@@ -12,11 +12,15 @@ class Brains(pygame.sprite.Sprite):
         self.rect.x = pos_x
         self.rect.y = pos_y
         self.mask = pygame.mask.from_surface(self.image)
+        self.vel_x = 0
+        self.points = 1
 
-        self.vel_x = SPEED
 
     def update(self):
         self.rect.left -= self.vel_x 
+
+    def set_vel_x(self, vel_x):
+        self.vel_x = vel_x
 
     def stop(self):
         self.vel_x = 0
