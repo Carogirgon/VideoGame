@@ -26,4 +26,4 @@ python3 main.py
 ## Tecnologías
 Tecnologías usadas en este proyecto:
 - Python: Version 3.10.4
-- Pygame: Version 2.1.1x
+- Pygame: Version 2.1.1
