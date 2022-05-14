@@ -179,7 +179,7 @@ class Cowboy_zombie:
     def menu(self):
         self.main = pygame.transform.scale(pygame.image.load(os.path.join('game/image/intro.png')),(WIDHT, HEIGHT))
         self.surface.blit(self.main, (0, 0))
-        self.display_text('Presiona ENTER para iniciar', 30, BLACK, WIDHT // 2, 460)
+        self.display_text('Presiona una tecla para iniciar', 30, BLACK, WIDHT // 2, 460)
 
         pygame.display.flip()
 
