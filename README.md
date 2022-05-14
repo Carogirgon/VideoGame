@@ -1,8 +1,8 @@
 # COWBOY ZOMBIE
 
 ## Información General
-Proyecto Final del Bootcamp de Introduccion a la Programacion de Codigo Facilito.
-El juego consiste en que un Zombie vaquero en el desierto debe brincar obstaculos, en este caso son cactus para poder alimentarse.
+- Proyecto Final del Bootcamp de Introduccion a la Programacion de Codigo Facilito.
+- El juego consiste en que un Zombie debe alimentarse de cerebros pero no puede tocar los obstaculos(cactus).
 
 ## Demo
 
@@ -10,14 +10,15 @@ El juego consiste en que un Zombie vaquero en el desierto debe brincar obstaculo
 
 
 ## ¿Cómo jugar?
-- Al inicializar el juego, aparecera una ventanada con el menu del juego en el cual debes presionar la tecla Enter para iniciar.
-- Posteriormente, para jugar debe presionar la Barra Espaciadora para brincar los obtactulos(cactus) y poder comer los cerebros. 
+- Al inicializar el juego, aparecera una ventanada con el menu del juego en el cual debes presionar una tecla para iniciar.
+- Posteriormente, debe presionar la Barra Espaciadora para brincar los obtactulos(cactus) y poder comer los cerebros.
 - A medida que avanza de nivel, la velocidad aumenta, lo cual agrega un poco de dificultad al juego.
-- El juego presentará una leyenda en la cual le pide presionar la tecla X para volver a jugar.
+- El juego termina una vez que el Zombie pierde todas sus vidas, despues de haber chocado con un cactus 3 veces.
+- Al finalizar, el juego presentará una leyenda en la cual le pide presionar la tecla X para volver a jugar.
 
 ## Instalar
 - Puedes jugar COWBOY ZOMBIE! clonando este repositorio:
-git clone
+
 - Posteriormente, deberás dirigirte a la carpeta del juego con el siguiente comando:
 cd VideoGame
 - Finalmente, para ejecutar el juego, deberás ejecutar este comando:

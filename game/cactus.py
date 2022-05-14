@@ -13,11 +13,9 @@ class Cactus(pygame.sprite.Sprite):
         self.rect.bottom = bottom
         self.mask = pygame.mask.from_surface(self.image)
         self.vel_x = SPEED
-        #self.rect_top = pygame.Rect(self.rect.x, self.rect.y, self.rect.width, 1) 
 
     def update(self): 
         self.rect.left -= self.vel_x
-        #self.rect_top.x = self.rect.x
 
     def set_vel_x(self, vel_x):
         self.vel_x = vel_x

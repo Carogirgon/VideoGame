@@ -23,13 +23,11 @@ class Zombie(pygame.sprite.Sprite):
         if object:
             return object[0]
 
-    # def collide_bottom(self, cactus):
-    #     return self.rect.colliderect(cactus.rect_top)
-
-    def hit(self):
+    def hit(self, cactus):
         self.vel_y = 0
-        #self.pos_y = cactus.rect_top
+        self.pos_y = cactus.rect.top
         self.can_jump = True
+        self.jump()
         
     def jump(self):
         if self.can_jump:

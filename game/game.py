@@ -32,14 +32,12 @@ class Cowboy_zombie:
         self.score = 0
         self.level = 0
         self.vel_x = SPEED
-        #self.zombie = True
         self.generate_elements()
         self.run_game()
 
     def generate_elements(self):
         self.platform = Platform()
         self.zombie = Zombie(100, self.platform.rect.top - 200, self.dir_images)
-        
         self.sprites = pygame.sprite.Group()
         self.cactus = pygame.sprite.Group() 
         self.brains = pygame.sprite.Group()
@@ -95,7 +93,7 @@ class Cowboy_zombie:
             if key[pygame.K_SPACE]:
                 self.zombie.jump()
 
-            if key[pygame.K_x] and not self.zombie:
+            if key[pygame.K_x] and not self.zombie.zombie:
                 self.new_game() 
 
             self.surface.blit(self.background, (0, 0))
@@ -106,21 +104,13 @@ class Cowboy_zombie:
     def update(self):
 
         if self.zombie.lives > 0:
-            # if not self.zombie:
-            #     return
 
             cactus = self.zombie.collide_with(self.cactus)
             if cactus:
+                self.zombie.hit(cactus)
                 self.zombie.lives -= 1
                 if self.zombie.lives == 0:
                     self.stop()
-
-            #cactus = self.zombie.collide_with(self.cactus)
-            #if cactus:
-                #if self.zombie.collide_bottom(cactus):
-                    #self.zombie.hit(cactus)
-                #else:
-                    #self.stop()
 
             brain = self.zombie.collide_with(self.brains)
             if brain:
@@ -142,15 +132,13 @@ class Cowboy_zombie:
                 element.kill()
 
     def stop(self):
-        print('STOPPED')
-        pygame.mixer.Sound(os.path.join(self.dir_sounds,'lose.wav')).play()
         self.vel_x = 0
         self.zombie.stop()
-        self.zombie = False
+        self.zombie.zombie = False
         self.stop_elements(self.cactus)
+        pygame.mixer.Sound(os.path.join(self.dir_sounds, 'lose.wav')).play()
 
     def stop_elements(self, elements):
-
         for element in elements:
             element.stop()
             
@@ -161,6 +149,9 @@ class Cowboy_zombie:
     def increment_score(self, points=1):
         self.score += points
 
+    def zombie_lives(self):
+        return 'lives : {}'.format(self.zombie.lives)
+
     def score_format(self):
         return 'Score : {}'.format(self.score)
 
@@ -170,10 +161,11 @@ class Cowboy_zombie:
     def draw_text(self):
         self.display_text(self.score_format(), 30, BLACK, WIDHT // 2, 30)
         self.display_text(self.level_format(), 30, BLACK, 70, TEXT_POSTY)
+        self.display_text(self.zombie_lives(), 30, BLACK, 800, 30)
 
-        if not self.zombie:
-            self.display_text('Perdiste', 40, BLACK, WIDHT // 2, HEIGHT // 2)
-            self.display_text('Presiona x para comenzar de nuevo', 30, BLACK, WIDHT // 2, 100)
+        if not self.zombie.zombie:
+            self.display_text('PERDISTE!', 40, BLACK, WIDHT // 2, HEIGHT // 2)
+            self.display_text('Presiona x para comenzar de nuevo', 30, BLACK, WIDHT // 2, 200)
 
     def display_text(self, text, size, color, pos_x, pos_y): 
         font = pygame.font.Font(self.font, size)
