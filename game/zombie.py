@@ -16,18 +16,19 @@ class Zombie(pygame.sprite.Sprite):
         self.vel_y = 0
         self.can_jump = False 
         self.zombie = True
+        self.lives = 3
 
     def collide_with(self, sprites): 
         object = pygame.sprite.spritecollide(self, sprites, False, pygame.sprite.collide_mask)
         if object:
             return object[0]
 
-    #def collide_bottom(self, cactus):
-        #return self.rect.colliderect(cactus.rect_top)
+    # def collide_bottom(self, cactus):
+    #     return self.rect.colliderect(cactus.rect_top)
 
     def hit(self):
         self.vel_y = 0
-        #self.pos_y = cactus.rect.top
+        #self.pos_y = cactus.rect_top
         self.can_jump = True
         
     def jump(self):

@@ -105,13 +105,15 @@ class Cowboy_zombie:
 
     def update(self):
 
-        if self.zombie:
-            if not self.zombie:
-                return
+        if self.zombie.lives > 0:
+            # if not self.zombie:
+            #     return
 
             cactus = self.zombie.collide_with(self.cactus)
             if cactus:
-                self.stop()
+                self.zombie.lives -= 1
+                if self.zombie.lives == 0:
+                    self.stop()
 
             #cactus = self.zombie.collide_with(self.cactus)
             #if cactus:
@@ -140,6 +142,7 @@ class Cowboy_zombie:
                 element.kill()
 
     def stop(self):
+        print('STOPPED')
         pygame.mixer.Sound(os.path.join(self.dir_sounds,'lose.wav')).play()
         self.vel_x = 0
         self.zombie.stop()
