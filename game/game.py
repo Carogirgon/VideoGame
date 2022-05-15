@@ -94,7 +94,7 @@ class Cowboy_zombie:
                 self.zombie.jump()
 
             if key[pygame.K_x] and not self.zombie.zombie:
-                self.new_game() 
+                self.new_game()
 
             self.surface.blit(self.background, (0, 0))
             self.draw_text()
@@ -150,7 +150,7 @@ class Cowboy_zombie:
         self.score += points
 
     def zombie_lives(self):
-        return 'lives : {}'.format(self.zombie.lives)
+        return 'Lives : {}'.format(self.zombie.lives)
 
     def score_format(self):
         return 'Score : {}'.format(self.score)
@@ -164,7 +164,7 @@ class Cowboy_zombie:
         self.display_text(self.zombie_lives(), 30, BLACK, 800, 30)
 
         if not self.zombie.zombie:
-            self.display_text('PERDISTE!', 40, BLACK, WIDHT // 2, HEIGHT // 2)
+            self.display_text('GAME OVER!', 40, BLACK, WIDHT // 2, HEIGHT // 2)
             self.display_text('Presiona x para comenzar de nuevo', 30, BLACK, WIDHT // 2, 200)
 
     def display_text(self, text, size, color, pos_x, pos_y): 
